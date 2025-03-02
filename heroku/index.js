@@ -77,9 +77,12 @@ app.post('/threads', function(req, res) {
 
 const logApiCallResult = (apiCallName, data) => {
   console.log(apiCallName);
+  
+  const showDebugingInfo = true;
   if (showDebugingInfo) {
     console.log('Data:' + JSON.stringify(data));
   }
+  
 };
 
 //Lead Retrieval
