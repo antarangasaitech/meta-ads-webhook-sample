@@ -6,6 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+//Lead Retrieval
+const bizSdk = require('facebook-nodejs-business-sdk');
+
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
@@ -17,7 +20,7 @@ app.listen(app.get('port'));
 app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }));
 app.use(bodyParser.json());
 
-var token = process.env.TOKEN || 'token';
+var token = process.env.VERIFY_TOKEN || 'token';
 var received_updates = [];
 
 app.get('/', function(req, res) {
@@ -50,6 +53,9 @@ app.post('/facebook', function(req, res) {
   console.log('request header X-Hub-Signature validated');
   // Process the Facebook updates here
   received_updates.unshift(req.body);
+  const { entry, object } = req.body;
+  console.log('Lead  ID:', entry[0].changes[0].value.leadgen_id);
+  getLeadInfoFromId(entry[0].changes[0].value.leadgen_id);
   res.sendStatus(200);
 });
 
@@ -68,5 +74,44 @@ app.post('/threads', function(req, res) {
   received_updates.unshift(req.body);
   res.sendStatus(200);
 });
+
+const logApiCallResult = (apiCallName, data) => {
+  console.log(apiCallName);
+  if (showDebugingInfo) {
+    console.log('Data:' + JSON.stringify(data));
+  }
+};
+
+//Lead Retrieval
+const getLeadInfoFromId = (leadgen_id) => {
+
+  const Lead = bizSdk.Lead;
+
+  const access_token = process.env.ACCESS_TOKEN;
+  const app_secret = process.env.APP_SECRET;
+  const app_id = process.env.APP_ID;
+  const id = leadgen_id;
+  const api = bizSdk.FacebookAdsApi.init(access_token);
+
+  const showDebugingInfo = true; // Setting this to true shows more debugging info.
+  if (showDebugingInfo) {
+    api.setDebug(true);
+  }
+
+  let fields, params;
+  fields = [
+  ];
+  params = {
+  };
+  
+  const sample_code = (new Lead(id)).get(
+    fields,
+    params
+  );
+  
+  logApiCallResult('sample_code api call complete.', sample_code);
+
+}
+
 
 app.listen();
