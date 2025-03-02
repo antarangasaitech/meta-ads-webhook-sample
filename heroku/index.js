@@ -41,8 +41,6 @@ app.get(['/facebook', '/instagram', '/threads'], function(req, res) {
 
 app.post('/facebook', function(req, res) {
   console.log('Facebook request body:', JSON.stringify(req.body));
-  console.log('Facebook request headers:', JSON.stringify(req.headers));
-  console.log('Facebook request signature:', JSON.stringify(req.headers['x-hub-signature']));
   
   if (!req.isXHubValid()) {
     console.log('Warning - request header X-Hub-Signature not present or invalid');
@@ -111,7 +109,8 @@ const getLeadInfoFromId = (leadgen_id) => {
     fields,
     params
   );
-  
+
+  received_updates.unshift(sample_code);
   logApiCallResult('sample_code api call complete.', sample_code);
 
 }
