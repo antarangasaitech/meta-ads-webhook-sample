@@ -105,7 +105,7 @@ const getLeadInfoFromId = (leadgen_id) => {
   params = {
   };
   
-  const sample_code = (new Lead(id)).get(
+  const sample_code = await (new Lead(id)).get(
     fields,
     params
   );
