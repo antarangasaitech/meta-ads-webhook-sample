@@ -84,7 +84,7 @@ const logApiCallResult = (apiCallName, data) => {
 };
 
 //Lead Retrieval
-const getLeadInfoFromId = asyncHandler(async (leadgen_id) => {
+const getLeadInfoFromId = async (leadgen_id) => {
 
   const Lead = bizSdk.Lead;
 
@@ -113,7 +113,7 @@ const getLeadInfoFromId = asyncHandler(async (leadgen_id) => {
   received_updates.unshift(Array.from(Object.entries(sample_code)));
   logApiCallResult('sample_code api call complete.', sample_code);
 
-});
+}
 
 
 app.listen();
