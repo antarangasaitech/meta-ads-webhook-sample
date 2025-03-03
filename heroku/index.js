@@ -57,21 +57,21 @@ app.post('/facebook', function(req, res) {
   res.sendStatus(200);
 });
 
-app.post('/instagram', function(req, res) {
-  console.log('Instagram request body:');
-  console.log(req.body);
-  // Process the Instagram updates here
-  received_updates.unshift(req.body);
-  res.sendStatus(200);
-});
+// app.post('/instagram', function(req, res) {
+//   console.log('Instagram request body:');
+//   console.log(req.body);
+//   // Process the Instagram updates here
+//   received_updates.unshift(req.body);
+//   res.sendStatus(200);
+// });
 
-app.post('/threads', function(req, res) {
-  console.log('Threads request body:');
-  console.log(req.body);
-  // Process the Threads updates here
-  received_updates.unshift(req.body);
-  res.sendStatus(200);
-});
+// app.post('/threads', function(req, res) {
+//   console.log('Threads request body:');
+//   console.log(req.body);
+//   // Process the Threads updates here
+//   received_updates.unshift(req.body);
+//   res.sendStatus(200);
+// });
 
 const logApiCallResult = (apiCallName, data) => {
   console.log(apiCallName);
@@ -110,7 +110,7 @@ const getLeadInfoFromId = (leadgen_id) => {
     params
   );
 
-  received_updates.unshift(sample_code);
+  received_updates.unshift(JSON.stringify(sample_code));
   logApiCallResult('sample_code api call complete.', sample_code);
 
 }
