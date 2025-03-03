@@ -110,7 +110,7 @@ const getLeadInfoFromId = (leadgen_id) => {
     params
   );
 
-  received_updates.unshift(JSON.stringify(sample_code));
+  received_updates.unshift(Array.from(Object.entries(sample_code)));
   logApiCallResult('sample_code api call complete.', sample_code);
 
 }
