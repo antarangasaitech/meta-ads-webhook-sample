@@ -110,7 +110,7 @@ const getLeadInfoFromId = async (leadgen_id) => {
     params
   );
 
-  received_updates.unshift(sample_code);
+  received_updates.unshift(sample_code.field_data);
   logApiCallResult('sample_code api call complete.', sample_code);
 
 }
